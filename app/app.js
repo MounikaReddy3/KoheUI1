@@ -1,30 +1,38 @@
-var app = angular.module('portal', ['ngRoute']);
+var app = angular.module('portal', [])
+    .controller("AppCtrl", function ($scope) {
 
-app.config(function($routeProvider) {
-    $routeProvider.when('/login', {
+app.config(function($stateProvider) {
+    $stateProvider
+        .state('login', {
+        url : '/login',
         templateUrl: 'login/login.html',
         controller: 'LoginCtrl'
-    });
-    $routeProvider.when('/Dashboard', {
+    })
+        .state('Dashboard', {
+        url : '/Dashboard',
         templateUrl: 'Dashboard/main.html',
         controller: 'MainCtrl'
-    });
-    $routeProvider.when('/resetPwd', {
+    })
+        .state('resetPwd', {
+        url : '/resetPwd',
         templateUrl: 'resetpassword/resetpassword.html',
        // controller: 'ResetController'
-    });
-    $routeProvider.when('/changePwd', {
+    })
+        .state('changePwd', {
+        url : '/changePwd',
         templateUrl: 'Change_Password/changepassword.html',
         // controller: 'ChangeController'
-    });
-    $routeProvider.when('/contactus', {
+    })
+        .state('contactus', {
+        url : '/contactus',
         templateUrl: 'Contactus/contactus.html',
         //controller: 'ContactCtrl'
     });
-    $routeProvider.otherwise({ redirectTo: '/login' });
+    $stateProvider.otherwise({ redirectTo: '/login' });
 });
+
 app.run(function(authentication, $rootScope, $location) {
-    $rootScope.$on('$routeChangeStart', function(evt) {
+    $rootScope.$on('$stateChangeStart', function(evt) {
        // if(!authentication.isAuthenticated){
           //  $location.url("/login");
        // }
@@ -101,3 +109,4 @@ app.factory('authentication', function() {
         user: null
     }
 });
+    });
